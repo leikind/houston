@@ -2,27 +2,31 @@ require 'json'
 
 module Houston
   class Notification
-    class APNSError < RuntimeError
+    class APNSError
       # See: https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/CommunicatingWIthAPS.html#//apple_ref/doc/uid/TP40008194-CH101-SW12
       CODES = {
-        0 => 'No errors encountered',
-        1 => 'Processing error',
-        2 => 'Missing device token',
-        3 => 'Missing topic',
-        4 => 'Missing payload',
-        5 => 'Invalid token size',
-        6 => 'Invalid topic size',
-        7 => 'Invalid payload size',
-        8 => 'Invalid token',
-        10 => 'Shutdown',
+        0   => 'No errors encountered',
+        1   => 'Processing error',
+        2   => 'Missing device token',
+        3   => 'Missing topic',
+        4   => 'Missing payload',
+        5   => 'Invalid token size',
+        6   => 'Invalid topic size',
+        7   => 'Invalid payload size',
+        8   => 'Invalid token',
+        10  => 'Shutdown',
         255 => 'Unknown error'
       }
 
-      attr_reader :code
+      attr_accessor :code, :message
+
+      def inspect
+        "#<APNSError: <#{code}> #{message}>"
+      end
 
       def initialize(code)
         raise ArgumentError unless CODES.include?(code)
-        super(CODES[code])
+        @message = CODES[code]
         @code = code
       end
     end
