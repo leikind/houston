@@ -97,25 +97,25 @@ module Houston
 
     private
 
-      def device_token_item
-        [1, 32, @token.gsub(/[<\s>]/, '')].pack('cnH64')
-      end
+    def device_token_item
+      [1, 32, @token.gsub(/[<\s>]/, '')].pack('cnH64')
+    end
 
-      def payload_item
-        json = payload.to_json
-        [2, json.bytes.count, json].pack('cna*')
-      end
+    def payload_item
+      json = payload.to_json
+      [2, json.bytes.count, json].pack('cna*')
+    end
 
-      def identifier_item
-        [3, 4, @id].pack('cnN') unless @id.nil?
-      end
+    def identifier_item
+      [3, 4, @id].pack('cnN') unless @id.nil?
+    end
 
-      def expiration_item
-        [4, 4, @expiry.to_i].pack('cnN') unless @expiry.nil?
-      end
+    def expiration_item
+      [4, 4, @expiry.to_i].pack('cnN') unless @expiry.nil?
+    end
 
-      def priority_item
-        [5, 1, @priority].pack('cnc') unless @priority.nil?
-      end
+    def priority_item
+      [5, 1, @priority].pack('cnc') unless @priority.nil?
+    end
   end
 end
