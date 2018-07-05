@@ -41,7 +41,7 @@ module Houston
         ssl = connection.ssl
 
         notifications.each_with_index do |notification, index|
-          next unless notification.kind_of?(Notification)
+          next unless notification.is_a?(Notification)
           next if notification.sent?
           next unless notification.valid?
 
